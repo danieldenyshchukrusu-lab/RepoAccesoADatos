@@ -38,7 +38,6 @@ public class ArchivoTXT {
         }
     }
 
-
     public void codifica(String ficheroDestino) {
         int letra;
 
@@ -87,4 +86,65 @@ public class ArchivoTXT {
     public int contarPuntuacion() {
 
     } */
+
+    public void contarLineas() {
+        String linea;
+        String[] partes;
+        int contador = 0;
+
+        try (BufferedReader lector = Files.newBufferedReader(this.ruta)) {
+            while ((linea = lector.readLine()) != null) {
+                partes=linea.split("\\.");
+                if (partes.length>0) {
+                    for (int i = 0; i < partes.length; i++) {
+                        System.out.println(partes[i]);
+                        contador++;
+                    }
+                }
+            }
+            System.out.println("El fichero tiene: " +contador+ " frases");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void contadorDePalabras() {
+        String linea;
+        String[] partes;
+        int contador = 0;
+
+        try (BufferedReader lector = Files.newBufferedReader(this.ruta)) {
+            while ((linea = lector.readLine()) != null) {
+                partes=linea.split(" ");
+                if (partes.length>0) {
+                    for (int i = 0; i < partes.length; i++) {
+                        contador++;
+                    }
+                }
+            }
+            System.out.println("El fichero tiene: " +contador+ " palabras");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void contadorVocales(String ficheroDestino) {
+        int letra;
+        int contador = 0;
+
+        try (FileReader lector = new FileReader(this.ruta.toFile()); BufferedWriter escritor = Files.newBufferedWriter(Path.of(ficheroDestino))) {
+            while ((letra = lector.read()) != -1) {
+                // Convertimos el entero a char para mostrar la letra
+                char valor = (char) letra ;
+                char MayusculaMinuscula = Character.toLowerCase(valor); //Aqui convierto todoo en una minuscula para poder controlar todoo mejor, porque no puedo hacer un .equalsIgnoreCase a un char.
+                if (valor=='a' || valor=='e' || valor=='i' || valor=='o' || valor=='u' || valor=='á' || valor=='é' || valor=='í' || valor=='ó' || valor=='ú' || valor=='ä' || valor=='ë' || valor=='ï' || valor=='ö' || valor=='ü') {
+                    contador++;
+                    escritor.write(contador+ " ");
+                }
+
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
