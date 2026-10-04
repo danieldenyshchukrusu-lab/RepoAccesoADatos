@@ -1,5 +1,6 @@
 package practicaFicheros;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -110,7 +111,17 @@ public class ProbarFicheros2 {
         de cada campo. Sobrescribe toString para ayudarte. ¿Qué sucede si intentas
         escribir un nuevo elemento abriendo el fichero en modo lectura?*/
 
+        String linea;
 
+        System.out.println("");
+        System.out.println("Leer fichero .CSV de pokemons");
+        try (BufferedReader lector = Files.newBufferedReader(Path.of("C:\\Users\\Zombo\\Desktop\\Pokemon.csv"))) {
+            while ((linea = lector.readLine()) != null) {
+                System.out.println(linea);
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 }
