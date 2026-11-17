@@ -74,6 +74,7 @@ public class ProbarFicheros {
                         fich = false;
                     }
                 }
+
                 if(listaFicheros.isEmpty() || fich) {
                     Files.deleteIfExists(directorio);
                 }
